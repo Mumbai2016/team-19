@@ -8,42 +8,37 @@
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	
 	<script>
-	var invalid=false;
-	function checkPass() {
-	if(document.getElementById('password').value != document.getElementById('password1').value){
-	invalid = true;
-	alert('password not same') 
-	}
-	}
-	
-	function formSubmit()
-	{
-	var user = {
-	
-	"email_id":document.getElementById('email_id').value,
-	"goal":document.getElementById('goal').value='null',
-	"password":document.getElementById('password').value,
-	"address":document.getElementById('address').value,
-	"gender":document.getElementById('gender').value,
-	"dob":document.getElementById('dob').value,
-	"mobile_no":document.getElementById('mobile_no').value,
-	"mother_mobile_no":document.getElementById('mother_mobile_no').value,
-	"father_mobile_no":document.getElementById('father_mobile_no').value,
-	"other_no":document.getElementById('other_no').value,
-	"qualification":document.getElementById('qualification').value,
-	"employment":document.getElementById('employment').value,
-	"reward_points":document.getElementById('reward_points').value="0",
-	"program_start_date":document.getElementById('program_start_date').value+"null",
-	"program_duration":document.getElementById('program_duration').value+"null",
-	"is_active":document.getElementById('is_active').value="false",
-	"is_deactivated":document.getElementById('is_deactivated').value="false",
-	"created_at":document.getElementById('created_at').value,
-	"updated_at":document.getElementById('updated_at').value,
-	
-	
-	
-	}
-	}
+	$(document).ready(function () {
+        $.ajax({
+            url: "localhost:9000/api/webapp/member/list",
+            type: "GET",
+            success: function (data) {
+                var html = "";
+
+                for(key in data) {
+                    if(!data.hasOwnProperty(key)) continue;
+
+                    html += '<tr class="odd gradeX">' +
+                            '<td>'+ data[key].full_name +'</td>' +
+                            '<td>'+ data[key].dob +'</td>' +
+                            '<td>'+ data[key].gender +'</td>' +
+                            '<td class="center">'+ data[key].address +'</td>' +
+                            '<td class="center">'+ data[key].email_id +'</td>' +
+                            '<td class="center">'+ data[key].reward_points +'</td>' +
+                            '<td class="center">'+ data[key].goal +'</td>' +
+                            '<td><button class="btn btn-default" onclick="delete_member('+ data[key].id +')">Delete</button></td>' +
+                            '</tr>';
+                }
+            }
+        });
+
+    function delete_member(id){
+    $.ajax({url: "localhost:9000/api/web/member/delete/"+id,
+            type: "GET",
+            success: function(result){
+            }
+        });
+    }
 	</script>
   </head>
   <body style="background-color:#f5f5f5;">
@@ -82,7 +77,7 @@
 			  
 			  <div class="form-group">
                   <label>Address</label>
-                  <input type="text" class="form-control" name="address" id="address" required>
+                  <textarea class="form-control" name="address" rows="3" id="address" required></textarea>
               </div>  
 			  
 			  <div class="form-group">
@@ -92,24 +87,24 @@
 			  
 			  <div class="form-group">
                   <label>Contact no.</label>
-                  <input type="number" class="form-control" name="mobile_no" id="mobile_no" required>
+                  <input type="tel" class="form-control" name="mobile_no" id="mobile_no" required>
               </div>
 			  
 			  
 			  <div class="form-group">
                   <label>Mother's contact</label>
-                  <input type="number" class="form-control" name="mother_mobile_no" id="mother_mobile_no" required>
+                  <input type="tel" class="form-control" name="mother_mobile_no" id="mother_mobile_no" required>
               </div>
 			  
 			  <div class="form-group">
                   <label>Father's contact</label>
-                  <input type="number" class="form-control" name="father_mobile_no" id="father_mobile_no" required>
+                  <input type="tel" class="form-control" name="father_mobile_no" id="father_mobile_no" required>
               </div>
 			  
 			  
 			  <div class="form-group">
                   <label>Other Contact</label>
-                  <input type="number" class="form-control" name="other_no" id="other_no" required>
+                  <input type="tel" class="form-control" name="other_no" id="other_no" required>
               </div>
 			  
 			  <div class="form-group">

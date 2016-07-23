@@ -12,16 +12,15 @@
 	function checkPass() {
 	if(document.getElementById('password').value != document.getElementById('password1').value){
 	invalid = true;
-	alert('password not same') 
+	alert('password not same');
 	}
 	}
 	
 	function formSubmit()
 	{
 	var user = {
-	
 	"email_id":document.getElementById('email_id').value,
-	"goal":document.getElementById('goal').value='null',
+	"goal":null,
 	"password":document.getElementById('password').value,
 	"address":document.getElementById('address').value,
 	"gender":document.getElementById('gender').value,
@@ -32,17 +31,23 @@
 	"other_no":document.getElementById('other_no').value,
 	"qualification":document.getElementById('qualification').value,
 	"employment":document.getElementById('employment').value,
-	"reward_points":document.getElementById('reward_points').value="0",
-	"program_start_date":document.getElementById('program_start_date').value+"null",
-	"program_duration":document.getElementById('program_duration').value+"null",
-	"is_active":document.getElementById('is_active').value="false",
-	"is_deactivated":document.getElementById('is_deactivated').value="false",
+	"reward_points":0,
+	"program_start_date":null,
+	"program_duration":null,
+	"is_active":false,
+	"is_deactivated":false,
 	"created_at":document.getElementById('created_at').value,
-	"updated_at":document.getElementById('updated_at').value,
-	
-	
-	
+	"updated_at":document.getElementById('updated_at').value
 	}
+	var data = {"user":user}
+
+	$.ajax({url: "localhost:9000/webapp/register,
+            type: "POST",
+            data: data,
+            success: function(result){
+            }
+        });
+
 	}
 	</script>
   </head>
@@ -82,7 +87,7 @@
 			  
 			  <div class="form-group">
                   <label>Address</label>
-                  <input type="text" class="form-control" name="address" id="address" required>
+                  <textarea class="form-control" name="address" rows="3" id="address" required></textarea>
               </div>  
 			  
 			  <div class="form-group">
@@ -92,24 +97,24 @@
 			  
 			  <div class="form-group">
                   <label>Contact no.</label>
-                  <input type="number" class="form-control" name="mobile_no" id="mobile_no" required>
+                  <input type="tel" class="form-control" name="mobile_no" id="mobile_no" required>
               </div>
 			  
 			  
 			  <div class="form-group">
                   <label>Mother's contact</label>
-                  <input type="number" class="form-control" name="mother_mobile_no" id="mother_mobile_no" required>
+                  <input type="tel" class="form-control" name="mother_mobile_no" id="mother_mobile_no" required>
               </div>
 			  
 			  <div class="form-group">
                   <label>Father's contact</label>
-                  <input type="number" class="form-control" name="father_mobile_no" id="father_mobile_no" required>
+                  <input type="tel" class="form-control" name="father_mobile_no" id="father_mobile_no" required>
               </div>
 			  
 			  
 			  <div class="form-group">
                   <label>Other Contact</label>
-                  <input type="number" class="form-control" name="other_no" id="other_no" required>
+                  <input type="tel" class="form-control" name="other_no" id="other_no" required>
               </div>
 			  
 			  <div class="form-group">
