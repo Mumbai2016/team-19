@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -22,9 +24,11 @@ def register(request):
 
 
 def _register(request):
-    user = User.objects.create_user(username=request.data.get('user', None).email_id, password=user.password)
+    user = User.objects.create_user(
+        username=request.data['user']['email_id'], password=request.data['user']['password'])
     #   Create Member
-    ser = MemberSerializer(data=user)
+    member = json.dumps(request.data['user'])
+    ser = MemberSerializer(data=member)
     if ser.is_valid():
         ser.save()
     else:
