@@ -32,34 +32,40 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script>
-    $(document).ready(function () {
-        $.ajax({
-            url: "localhost:9000/api/webapp/member/list",
-            type: "GET",
-            success: function (data) {
-                var html = "";
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://localhost:9000/api/webapp/member/list",
+                type: "GET",
+                success: function (data, status, xhr) {
+                    var html = "";
 
-                for(key in data) {
-                    if(!data.hasOwnProperty(key)) continue;
+                    for(key in data) {
+                        if(!data.hasOwnProperty(key)) continue;
 
-                    html += '<tr class="odd gradeX">' +
-                            '<td>'+ data[key].full_name +'</td>' +
-                            '<td>'+ data[key].dob +'</td>' +
-                            '<td>'+ data[key].gender +'</td>' +
-                            '<td class="center">'+ data[key].address +'</td>' +
-                            '<td class="center">'+ data[key].email_id +'</td>' +
-                            '<td class="center">'+ data[key].reward_points +'</td>' +
-                            '<td class="center">'+ data[key].goal +'</td>' +
-                            '</tr>';
+                        html += '<tr class="odd gradeX">' +
+                                '<td>'+ data[key].full_name +'</td>' +
+                                '<td>'+ data[key].dob +'</td>' +
+                                '<td>'+ data[key].gender +'</td>' +
+                                '<td class="center">'+ data[key].address +'</td>' +
+                                '<td class="center">'+ data[key].email_id +'</td>' +
+                                '<td class="center">'+ data[key].reward_points +'</td>' +
+                                '<td class="center">'+ data[key].goal +'</td>' +
+                                '</tr>';
+                    }
+
+                    $('#user-table').append(html);
+                },
+                error: function (argument) {
+                	console.log("X");
                 }
-            }
+            });
         });
-    });
     </script>
 
 </head>
@@ -436,7 +442,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -448,17 +454,8 @@
                                             <th>Goal</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="center"></td>
-                                            <td class="center"></td>
-                                            <td class="center"></td>
-                                            <td class="center"></td>
-                                        </tr>
-                                                                      
+                                    <tbody id="user-table">
+
                                     </tbody>
                                 </table>
                             </div>
@@ -491,17 +488,9 @@
                                             <th>Inactive Since</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="odd gradeX">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="center"></td>
-                                            <td class="center"></td>
-                                            <td class="center"></td>
-                                        </tr>
-                                                                      
-                                    </tbody>
+                                    <!--<tbody id="user-table">-->
+
+                                    <!--</tbody>-->
                                 </table>
                             </div>
                         </div>
