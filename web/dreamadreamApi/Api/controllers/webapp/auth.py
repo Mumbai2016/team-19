@@ -13,38 +13,45 @@ from Api.serializer.webapp.memberserializer import MemberSerializer
 @api_view(['POST'])
 def register(request):
     user = request.data.get('user', None)
-    try:
-        Member.objects.get(email_id=user.email_id)
-        User.objects.get(username=user.email_id)
-    except (Member.DoesNotExist, User.DoesNotExist):
-        return Response(data="User Already exists please try again")
-    else:
-        user = _register(request=request)
 
-    return Response(data=user, status=status.HTTP_202_ACCEPTED)
+    try:
+        Member.objects.get(email_id=user['email_id'])
+    except Member.DoesNotExist:
+        user = _register(request=request)
+    else:
+        return Response(data="User Already exists please try again")
+
+    retval = {
+        'user': user.username
+    }
+    return Response(data=retval, status=status.HTTP_202_ACCEPTED)
 
 
 def login(request):
     user = request.data.get('user', None)
+
     try:
-        Member.objects.get(email_id=user.email_id)
-        User.objects.get(username=user.email_id)
-    except (Member.DoesNotExist, User.DoesNotExist):
+        Member.objects.get(email_id=user['email_id'])
+    except Member.DoesNotExist:
         return Response(data="User Not registered")
     else:
-        user = authenticate(username=user.email_id, password=user.password)
-        return Response(data=user)
+        user = authenticate(username=user['email_id'], password=user['password'])
+        retval = {
+            'user': user.username
+        }
+        return Response(data=retval, status=status.HTTP_202_ACCEPTED)
 
 
 def _register(request):
     user = User.objects.create_user(
-        username=request.data['user']['email_id'], password=request.data['user']['password'])
+        username=request.data['user']['email_id'],
+        password=request.data['user']['password'])
     #   Create Member
-    member = json.dumps(request.data['user'])
+    member = request.data['user']
     ser = MemberSerializer(data=member)
     if ser.is_valid():
         ser.save()
     else:
-        return None
+        raise ValueError(json.dumps(ser.errors))
 
     return user

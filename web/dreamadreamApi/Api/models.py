@@ -1,42 +1,6 @@
 from django.db import models
 
 
-class Call(models.Model):
-    member = models.ManyToManyField(Member, related_name="call_member", null=True, default=None)
-    call_date = models.CharField(max_length=20)
-    status_at_date = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-class Event(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    qualification = models.CharField(max_length=255)
-    age_min = models.DecimalField(max_digits=2, decimal_places=0)
-    age_max = models.DecimalField(max_digits=2, decimal_places=0)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    is_disabled = models.BooleanField(default=False)
-
-
-class EventRegistration(models.Model):
-    event = models.ForeignKey(Event, related_name="registered_event")
-    member = models.ForeignKey(Member, related_name="registered_member")
-
-
-class Feedback(models.Model):
-    event = models.ForeignKey(Event, related_name="feedback_event")
-    member = models.ForeignKey(Member, related_name="feedback_member")
-    feedback = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
 class Member(models.Model):
     status = models.ForeignKey(Status, related_name="member_status")
     full_name = models.CharField(max_length=100)
@@ -56,23 +20,38 @@ class Member(models.Model):
     qualification = models.CharField(max_length=255)
     goal = models.CharField(max_length=255, blank=True, null=True)
 
-    reward_points = models.DecimalField(max_digits=50, decimal_places=0, null=True, blank=True)
+    reward_points = models.CharField(max_length=255, blank=True, null=True)
 
-    program_start_date = models.CharField(max_length=20, blank=True, null=True)
-    program_duration = models.CharField(max_length=20, blank=True, null=True)
+    program_start_date = models.CharField(max_length=20, blank=True, null=True, default=None)
+    program_duration = models.CharField(max_length=20, blank=True, null=True, default=None)
 
     is_active = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)
 
     is_deactivated = models.BooleanField(default=False)
-    deactivated_on = models.DateTimeField(default=None)
+    deactivated_on = models.DateTimeField(default=None, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
+class Event(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    qualification = models.CharField(max_length=255)
+    age_min = models.DecimalField(max_digits=2, decimal_places=0)
+    age_max = models.DecimalField(max_digits=2, decimal_places=0)
+
+
+class Call(models.Model):
+    member = models.ManyToManyField(Member, related_name="call_member", default=None)
+    call_date = models.CharField(max_length=20)
+    status_at_date = models.CharField(max_length=255)
+
+
 class Request(models.Model):
-    member = models.ManyToManyField(Member, related_name="request_member", null=True, default=None)
+    member = models.ManyToManyField(Member, related_name="request_member", default=None)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
 

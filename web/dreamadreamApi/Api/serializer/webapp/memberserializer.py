@@ -21,6 +21,7 @@ class MemberSerializer(serializers.ModelSerializer):
             'qualification',
             'status',
             'goal',
+            'reward_points',
             'program_start_date',
             'program_duration',
             'is_active',
