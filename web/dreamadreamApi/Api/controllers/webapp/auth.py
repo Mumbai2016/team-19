@@ -17,27 +17,28 @@ def register(request):
     try:
         Member.objects.get(email_id=user['email_id'])
     except Member.DoesNotExist:
-        user = _register(request=request)
+        user, member = _register(request=request)
+        retval = {
+            'user': user.username,
+            'member': member.id
+        }
+        return Response(data=retval, status=status.HTTP_202_ACCEPTED)
     else:
         return Response(data="User Already exists please try again")
-
-    retval = {
-        'user': user.username
-    }
-    return Response(data=retval, status=status.HTTP_202_ACCEPTED)
 
 
 def login(request):
     user = request.data.get('user', None)
 
     try:
-        Member.objects.get(email_id=user['email_id'])
+        member = Member.objects.get(email_id=user['email_id'])
     except Member.DoesNotExist:
         return Response(data="User Not registered")
     else:
         user = authenticate(username=user['email_id'], password=user['password'])
         retval = {
-            'user': user.username
+            'user': user.username,
+            'member': member.id
         }
         return Response(data=retval, status=status.HTTP_202_ACCEPTED)
 
@@ -54,4 +55,4 @@ def _register(request):
     else:
         raise ValueError(json.dumps(ser.errors))
 
-    return user
+    return user, member
