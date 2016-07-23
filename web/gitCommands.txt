@@ -1,0 +1,23 @@
+Push:
+1.git add files
+2.git commit -m "messages"
+3.git pull origin master
+4.if conflict:
+	resolve
+	commit (No message)
+5.git push origin master.
+
+Pull:
+1.git commit (if all the files are tracked)
+2.git pull
+
+Branch:
+1.git checkout team13_gui
+2.git commit -m "created branch"
+3.git push
+
+rest of the team members:
+1.git pull
+2.git checkout team13_gui
+
+git merge team13_gui master
