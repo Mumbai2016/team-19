@@ -1,17 +1,25 @@
 import datetime
+import json
 
-from Api.serializer.admin.ExotelResponseSerializer import ExotelResponseSerializer
-from dreamadreamApi.settings import EXOTEL
+from rest_framework import status
+from rest_framework.decorators import api_view
+
+# from Api.serializer.admin.ExotelResponseSerializer import ExotelResponseSerializer
+from rest_framework.response import Response
+
+from Api.utils.exotel import Exotel
 
 
+@api_view(['POST'])
 def make_exotel_call_task(request):
-    data = request.data;
+    data = request.data
+    print(data)
 
-    if 'mobile_nos' in data:
+    if 'mobile_nos[]' in data:
 
-        exotel = EXOTEL()
+        exotel = Exotel()
 
-        mobile_nos = data['mobile_nos']
+        mobile_nos = request.POST.getlist('mobile_nos[]')
 
         unique_mobile_nos = set(mobile_nos)
         unique_mobile_nos = list(unique_mobile_nos)
@@ -19,16 +27,19 @@ def make_exotel_call_task(request):
         for mobile_no in unique_mobile_nos:
             try:
                 resp = exotel.connect_number_to_app_without_callabck(to=mobile_no,
-                                                                     app_id=exotel.automated_interview_dna_call_app_id,
+                                                                     app_id="103645",
                                                                      custom_field=mobile_no)
                 resp = resp.json()
+                print(resp)
                 start_time = resp['Call']['DateCreated']
                 start_time = datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
                 data = {'callsid': resp['Call']['Sid'], 'start_time': start_time, 'mobile_no': mobile_no}
-                ser = ExotelResponseSerializer(data=data)
-                if ser.is_valid():
-                    ser.save()
-                else:
-                    print("Some Error occurred adding job data")
+                # ser = ExotelResponseSerializer(data=data)
+                # if ser.is_valid():
+                #     ser.save()
+                # else:
+                #     print("Some Error occurred adding job data")
             except:
-                print("Call failed for "+ mobile_no)
+                print("Call failed for " + mobile_no)
+
+    return Response(data="Done", status=status.HTTP_200_OK)
