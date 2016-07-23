@@ -18,7 +18,9 @@ class Member(models.Model):
 
     qualification = models.CharField(max_length=255)
     status = models.CharField(max_length=255)
-    goal = models.CharField(max_length=255)
+    goal = models.CharField(max_length=255, blank=True, null=True)
+
+    reward_points = models.DecimalField(max_digits=50, decimal_places=0)
 
     program_start_date = models.CharField(max_length=20, blank=True, null=True)
     program_duration = models.CharField(max_length=20, blank=True, null=True)
@@ -43,13 +45,13 @@ class Event(models.Model):
 
 
 class Call(models.Model):
-    member = models.ManyToManyField(Member, related_name="member", null=True, default=None)
+    member = models.ManyToManyField(Member, related_name="call_member", null=True, default=None)
     call_date = models.CharField(max_length=20)
     status_at_date = models.CharField(max_length=255)
 
 
 class Request(models.Model):
-    member = models.ManyToManyRel(Member, related_name="member", null=True, default=None)
+    member = models.ManyToManyField(Member, related_name="request_member", null=True, default=None)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
 
