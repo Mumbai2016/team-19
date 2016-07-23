@@ -23,13 +23,13 @@ class Event(models.Model):
 
 
 class EventRegistration(models.Model):
-    member = models.ForeignKey(Member, related_name="registered_member")
     event = models.ForeignKey(Event, related_name="registered_event")
+    member = models.ForeignKey(Member, related_name="registered_member")
 
 
 class Feedback(models.Model):
-    member = models.ForeignKey(Member, related_name="feedback_member")
     event = models.ForeignKey(Event, related_name="feedback_event")
+    member = models.ForeignKey(Member, related_name="feedback_member")
     feedback = models.CharField(max_length=255)
 
     created_at = models.DateTimeField(auto_now_add=True)
