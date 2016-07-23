@@ -20,6 +20,7 @@ class Event(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_disabled = models.BooleanField(default=False)
 
 
 class EventRegistration(models.Model):
@@ -37,6 +38,7 @@ class Feedback(models.Model):
 
 
 class Member(models.Model):
+    status = models.ForeignKey(Status, related_name="member_status")
     full_name = models.CharField(max_length=100)
     email_id = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=32)
@@ -52,7 +54,6 @@ class Member(models.Model):
     other_no = models.CharField(max_length=14, blank=True, null=True)
 
     qualification = models.CharField(max_length=255)
-    status = models.CharField(max_length=255)
     goal = models.CharField(max_length=255, blank=True, null=True)
 
     reward_points = models.DecimalField(max_digits=50, decimal_places=0, null=True, blank=True)
@@ -74,3 +75,8 @@ class Request(models.Model):
     member = models.ManyToManyField(Member, related_name="request_member", null=True, default=None)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
+
+
+class Status(models.Model):
+    member = models.ManyToManyField(Member, related_name="member", null=True, default=None)
+    member_status = models.CharField(max_length=255)

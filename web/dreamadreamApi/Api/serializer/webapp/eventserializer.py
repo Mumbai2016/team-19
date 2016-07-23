@@ -15,5 +15,6 @@ class EventSerializer(serializers.ModelSerializer):
             'age_min',
             'age_max',
             'created_at',
-            'updated_at'
+            'updated_at',
+            'is_disabled'
         )
