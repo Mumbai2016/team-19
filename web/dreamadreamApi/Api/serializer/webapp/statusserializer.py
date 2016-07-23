@@ -9,7 +9,9 @@ class RequestSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'member',
-            'member_status',
+            'status_date',
+            'qualification_status',
+            'employment_status',
             'created_at',
             'updated_at'
         )
