@@ -36,6 +36,32 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "localhost:9000/api/webapp/member/list",
+            type: "GET",
+            success: function (data) {
+                var html = "";
+
+                for(key in data) {
+                    if(!data.hasOwnProperty(key)) continue;
+
+                    html += '<tr class="odd gradeX">' +
+                            '<td>'+ data[key].full_name +'</td>' +
+                            '<td>'+ data[key].dob +'</td>' +
+                            '<td>'+ data[key].gender +'</td>' +
+                            '<td class="center">'+ data[key].address +'</td>' +
+                            '<td class="center">'+ data[key].email_id +'</td>' +
+                            '<td class="center">'+ data[key].reward_points +'</td>' +
+                            '<td class="center">'+ data[key].goal +'</td>' +
+                            '</tr>';
+                }
+            }
+        });
+    });
+    </script>
+
 </head>
 
 <body>

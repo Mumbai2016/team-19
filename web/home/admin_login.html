@@ -12,7 +12,7 @@
         <div class="container col-sm-offset-4 col-sm-4">
           <h2 class="form-signin-heading" style="font-size:36px; color:#212121;">Login Page</h2>
           <br>
-            <form class="form-signin" role="form" onsubmit="widow.location='dashboard/dashboard.html'" method="POST">
+            <form class="form-signin" role="form" method="POST">
               <div class="form-group">
                   <label for="email">Email</label>
                   <input type="email" class="form-control" id="email" placeholder="Email" required>
@@ -21,11 +21,11 @@
                   <label for="password">Password</label>
                   <input type="password" class="form-control" id="password" placeholder="Password" required>
               </div>
-              <button type="submit" class="btn btn-lg btn-primary">Login</button>
+              <a href="dashboard/dashboard.html"><button type="submit" class="btn btn-lg btn-primary">Login</button></a>
             </form>
         </div>
       </div>
-    <script src="jquery.min.js"></script>
+    <script src="bootstrap/js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
