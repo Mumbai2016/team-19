@@ -1,0 +1,5 @@
+Future Scope:
+1.send other profiles similar to your profile.
+2.fb login,social  media  login
+3.chat system
+4.google ads for fundraising
