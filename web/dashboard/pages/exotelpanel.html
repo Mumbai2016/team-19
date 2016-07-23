@@ -35,6 +35,31 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        function makeExotelCall() {
+            numbers = $('#calls').val();
+            numbers = numbers.split(",");
+            var data = {};
+            data.mobile_nos = [];
+            for(var i in numbers) {
+                data.mobile_nos.push(parseInt(numbers[i]));
+            }
+
+            console.log(data)
+            $.ajax({
+                url: "http://localhost:9000/api/exotel/make_exotel_call/",
+                type: "POST",
+                data: data,
+                success: function (data) {
+                    
+                },
+                error: function (data) {
+                    
+                }
+            })
+        }
+    </script>
 
 </head>
 
@@ -407,9 +432,9 @@
                         </div>
                         <div class="panel-body">
                            <div class="form-group">
-                                <form name="callusers" action="" >
-                                <textarea class="form-control" rows="3"></textarea><br />
-                                <button type="submit">Submit</button>
+                                <form name="callusers" onsubmit="return false;" >
+                                <textarea class="form-control" rows="3" id="calls"></textarea><br />
+                                <button type="submit" onclick="makeExotelCall();">Submit</button>
                                 </form>
                             </div>
                         </div>
