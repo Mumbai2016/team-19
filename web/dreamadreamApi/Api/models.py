@@ -1,9 +1,10 @@
 from django.db import models
 
 
-class User(models.Model):
+class Member(models.Model):
     full_name = models.CharField(max_length=100)
-    email_id = models.EmailField(max_length=100, blank=True, null=True)
+    email_id = models.EmailField(max_length=100, unique=True)
+    password = models.CharField(max_length=32)
 
     gender = models.CharField(max_length=10)
     dob = models.CharField(max_length=20)
