@@ -8,6 +8,7 @@ class MemberSerializer(serializers.ModelSerializer):
         model = Member
         fields = (
             'id',
+            'full_name',
             'email_id',
             'password',
             'address',
