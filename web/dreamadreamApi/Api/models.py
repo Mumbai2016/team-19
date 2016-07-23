@@ -1,34 +1,7 @@
 from django.db import models
 
 
-class Call(models.Model):
-    member = models.ManyToManyField(Member, related_name="call_member", default=None)
-    call_date = models.CharField(max_length=20)
-    status_at_date = models.CharField(max_length=255)
-
-
-class Event(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    qualification = models.CharField(max_length=255)
-    age_min = models.DecimalField(max_digits=2, decimal_places=0)
-    age_max = models.DecimalField(max_digits=2, decimal_places=0)
-
-
-class EventRegistration(models.Model):
-    member = models.ForeignKey(Member, related_name="registered_member")
-    registered_event = models.ForeignKey(Event, related_name="registered_event")
-
-
-class Feedback(models.Model):
-    member = models.ForeignKey(Member, related_name="feedback_member")
-    event = models.ForeignKey(Event, related_name="feedback_event")
-    feedback = models.CharField(max_length=255)
-
-
 class Member(models.Model):
-    status = models.ForeignKey(Status, related_name="member_status")
     full_name = models.CharField(max_length=100)
     email_id = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=32)
@@ -61,6 +34,32 @@ class Member(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+class Call(models.Model):
+    member = models.ManyToManyField(Member, related_name="call_member", default=None)
+    call_date = models.CharField(max_length=20)
+    status_at_date = models.CharField(max_length=255)
+
+
+class Event(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    qualification = models.CharField(max_length=255)
+    age_min = models.DecimalField(max_digits=2, decimal_places=0)
+    age_max = models.DecimalField(max_digits=2, decimal_places=0)
+
+
+class EventRegistration(models.Model):
+    member = models.ForeignKey(Member, related_name="registered_member")
+    registered_event = models.ForeignKey(Event, related_name="registered_event")
+
+
+class Feedback(models.Model):
+    member = models.ForeignKey(Member, related_name="feedback_member")
+    event = models.ForeignKey(Event, related_name="feedback_event")
+    feedback = models.CharField(max_length=255)
+
+
 class Request(models.Model):
     member = models.ManyToManyField(Member, related_name="request_member", default=None)
     name = models.CharField(max_length=255)
@@ -69,4 +68,5 @@ class Request(models.Model):
 
 class Status(models.Model):
     member = models.ManyToManyField(Member, related_name="member", null=True, default=None)
+    quarter = models.DateField(default=None)
     member_status = models.CharField(max_length=255)
