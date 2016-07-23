@@ -7,7 +7,6 @@ class Member(models.Model):
     password = models.CharField(max_length=32)
     address = models.CharField(max_length=255)
 
-
     gender = models.CharField(max_length=10)
     dob = models.CharField(max_length=20)
     age = models.DecimalField(max_digits=2, decimal_places=0)
@@ -55,7 +54,7 @@ class Request(models.Model):
     description = models.CharField(max_length=255)
 
 
-class Event_Registration(models.Model):
+class EventRegistration(models.Model):
     member = models.ForeignKey(Member, related_name="registered_member")
     registered_event = models.ForeignKey(Event, related_name="registered_event")
 
