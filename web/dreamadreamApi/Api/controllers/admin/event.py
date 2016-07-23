@@ -2,7 +2,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from Api.models import Event
+from Api.models import Event, EventRegistration, Member
+from Api.serializer.webapp.eventregistrationserializer import EventRegistrationSerializer
 from Api.serializer.webapp.eventserializer import EventSerializer
 
 
@@ -37,3 +38,19 @@ def event_delete(request, id):
         event.is_disabled = True
         event.save()
         return Response(data="Event deleted", status=status.HTTP_200_OK)
+
+
+@api_view(['PUT'])
+def event_register(request, eid, mid):
+    try:
+        er = EventRegistration.Objects.all()
+    except EventRegistration.DoesNotExist:
+        member = Member.Obejcts.get(pk=mid)
+        event = Event.Obejcts.get(pk=eid)
+        reg = {'event':event, 'member':member}
+        ser = EventRegistrationSerializer(data=reg)
+        if ser.is_valid():
+            ser.save()
+            return Response(data="Registered for Event", status=status.HTTP_200_OK)
+        else:
+            return Response(data="Failed", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
