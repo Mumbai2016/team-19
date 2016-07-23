@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dreamadream',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -104,6 +104,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+EXOTEL = {
+    "sid": "",
+    "token": "",
+    "caller_id_1": "",
+    "caller_id_2": "",
+    "outgoing_call_app_id": ""
+}
 
 
 # Internationalization
