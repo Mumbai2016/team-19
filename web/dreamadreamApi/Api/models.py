@@ -7,7 +7,7 @@ class User(models.Model):
 
     gender = models.CharField(max_length=10)
     dob = models.CharField(max_length=20)
-    age = models.DecimalField(max_length=10)
+    age = models.DecimalField(max_digits=2, decimal_places=0)
 
     mobile_no = models.CharField(max_length=14)
     mother_mobile_no = models.CharField(max_length=14, blank=True, null=True)
