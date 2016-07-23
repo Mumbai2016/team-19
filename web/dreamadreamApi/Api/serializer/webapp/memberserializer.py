@@ -6,7 +6,7 @@ from Api.models import Member
 class MemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Member
-        fields = {
+        fields = (
             'id',
             'email_id',
             'password',
@@ -18,9 +18,8 @@ class MemberSerializer(serializers.ModelSerializer):
             'mother_mobile_no',
             'father_mobile_no',
             'other_no',
-            'qualification',
-            'status',
             'goal',
+            'reward_points',
             'program_start_date',
             'program_duration',
             'is_active',
@@ -29,4 +28,4 @@ class MemberSerializer(serializers.ModelSerializer):
             'deactivated_on',
             'created_at',
             'updated_at'
-        }
+        )
