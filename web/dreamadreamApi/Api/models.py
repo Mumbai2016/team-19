@@ -20,16 +20,16 @@ class Member(models.Model):
     status = models.CharField(max_length=255)
     goal = models.CharField(max_length=255, blank=True, null=True)
 
-    reward_points = models.DecimalField(max_digits=50, decimal_places=0, null=True, blank=True)
+    reward_points = models.CharField(max_length=255, blank=True, null=True)
 
-    program_start_date = models.CharField(max_length=20, blank=True, null=True)
-    program_duration = models.CharField(max_length=20, blank=True, null=True)
+    program_start_date = models.CharField(max_length=20, blank=True, null=True, default=None)
+    program_duration = models.CharField(max_length=20, blank=True, null=True, default=None)
 
     is_active = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)
 
     is_deactivated = models.BooleanField(default=False)
-    deactivated_on = models.DateTimeField(default=None)
+    deactivated_on = models.DateTimeField(default=None, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -45,13 +45,13 @@ class Event(models.Model):
 
 
 class Call(models.Model):
-    member = models.ManyToManyField(Member, related_name="call_member", null=True, default=None)
+    member = models.ManyToManyField(Member, related_name="call_member", default=None)
     call_date = models.CharField(max_length=20)
     status_at_date = models.CharField(max_length=255)
 
 
 class Request(models.Model):
-    member = models.ManyToManyField(Member, related_name="request_member", null=True, default=None)
+    member = models.ManyToManyField(Member, related_name="request_member", default=None)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
 
