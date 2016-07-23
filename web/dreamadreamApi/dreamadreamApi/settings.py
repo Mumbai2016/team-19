@@ -108,11 +108,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 EXOTEL = {
-    "sid": "",
-    "token": "",
-    "caller_id_1": "",
-    "caller_id_2": "",
-    "outgoing_call_app_id": ""
+    "sid": "vrushalsolutions",
+    "token": "4d538c4167594edb2de421ccb5c4f4e9b7313f59",
+    "caller_id_1": "02239698203",
+    "caller_id_2": "09243422233",
+    "outgoing_call_app_id": "103645"
 }
 
 
