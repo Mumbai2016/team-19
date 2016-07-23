@@ -59,3 +59,7 @@ class EventRegistration(models.Model):
     registered_event = models.ForeignKey(Event, related_name="registered_event")
 
 
+class Feedback(models.Model):
+    member = models.ForeignKey(Member, related_name="feedback_member")
+    event = models.ForeignKey(Event, related_name="feedback_event")
+    feedback = models.CharField(max_length=255)
