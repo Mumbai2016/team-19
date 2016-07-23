@@ -17,7 +17,32 @@
     <!-- Custom CSS -->
     <link href="bootstrap/css/simple-sidebar.css" rel="stylesheet">
 
-    
+    <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "http://localhost:9000/api/webapp/member/list",
+                type: "GET",
+                success: function (data, status, xhr) {
+                    var html = "";
+
+                    
+                        html += 'Full Name:'+data[key].full_name+'<br><br>' +
+                       'Dob: '+data[key].dob+'<br><br>' +
+                       'Gender:'+data[key].gender+'<br><br>' +
+                       'Email:'+data[key].email+'<br><br>' +
+                       'Status:'+status+'<br><br>' +
+                       'Contact:'+contact+'<br><br>'
+                    }
+
+                    $('#user-table' id="profileData").append(html);
+                },
+                error: function (argument) {
+                    console.log("X");
+                }
+            });
+        });
+    </script>
 
 </head>
 
@@ -57,18 +82,11 @@
                     <div class="col-lg-12">
                         <h1>My Profile</h1>
                         <img src="profile_pic.jpg" height="200" width="200"><br><br><br>
-                       <div name="profile_details" style="float:left;">
-					   
-					   First Name:<br><br>
-					   Last Name:<br><br>
-					   Age:<br><br>
-					   Gender:<br><br>
-					   Email:<br><br>
-					   Status:<br><br>
-					   Contact:<br><br>
+                       <div name="profile_details" style="float:left;" id="profileData">
 					   
 					   
-					   
+				
+					  
 					   </div>
 					   </div>
                 </div>
