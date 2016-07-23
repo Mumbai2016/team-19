@@ -20,7 +20,7 @@ class Member(models.Model):
     status = models.CharField(max_length=255)
     goal = models.CharField(max_length=255, blank=True, null=True)
 
-    reward_points = models.DecimalField(max_digits=50, decimal_places=0)
+    reward_points = models.DecimalField(max_digits=50, decimal_places=0, null=True, blank=True)
 
     program_start_date = models.CharField(max_length=20, blank=True, null=True)
     program_duration = models.CharField(max_length=20, blank=True, null=True)
