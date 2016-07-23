@@ -34,12 +34,17 @@ class Member(models.Model):
 
 
 class Call(models.Model):
-    member = models.ManyToManyField(Member, related_name="call_member", default=None)
-    call_date = models.CharField(max_length=20)
-    status_at_date = models.CharField(max_length=255)
-
+    mobile_no = models.CharField(max_length=100, null=True, blank=True)
+    response = models.CharField(max_length=100, null=True, blank=True)
+    callsid = models.CharField(max_length=100, null=False, blank=False)
+    start_time = models.DateTimeField(null=True, blank=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+    duration = models.FloatField(max_length=10, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        app_label = 'api'
 
 
 class Event(models.Model):
