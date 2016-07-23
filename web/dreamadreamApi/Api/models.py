@@ -67,6 +67,6 @@ class Request(models.Model):
 
 
 class Status(models.Model):
-    member = models.ManyToManyField(Member, related_name="member", null=True, default=None)
+    member = models.ManyToManyField(Member, related_name="status_member")
     quarter = models.DateField(default=None)
     member_status = models.CharField(max_length=255)

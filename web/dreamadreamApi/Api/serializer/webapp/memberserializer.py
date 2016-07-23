@@ -19,7 +19,7 @@ class MemberSerializer(serializers.ModelSerializer):
             'father_mobile_no',
             'other_no',
             'qualification',
-            'status',
+
             'goal',
             'reward_points',
             'program_start_date',
