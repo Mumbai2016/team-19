@@ -15,16 +15,18 @@
 	alert('password not same');
 	}
 	}
-	
+
 	function formSubmit()
 	{
 	var user = {
+	"full_name":document.getElementById('full_name').value,
 	"email_id":document.getElementById('email_id').value,
 	"goal":null,
 	"password":document.getElementById('password').value,
 	"address":document.getElementById('address').value,
 	"gender":document.getElementById('gender').value,
 	"dob":document.getElementById('dob').value,
+	"age":document.getElementById('age').value,
 	"mobile_no":document.getElementById('mobile_no').value,
 	"mother_mobile_no":document.getElementById('mother_mobile_no').value,
 	"father_mobile_no":document.getElementById('father_mobile_no').value,
@@ -59,7 +61,7 @@
             <form class="form-signin" role="form">
               <div class="form-group">
                   <label>Full Name</label>
-                  <input type="text" name="full_name" id="n1" class="form-control"  required>
+                  <input type="text" name="full_name" id="full_name" class="form-control"  required>
               </div>  
               <div class="form-group">
                   <label for="email">Email</label>
@@ -93,7 +95,12 @@
 			  <div class="form-group">
                   <label>Date of Birth</label>
                   <input type="date" class="form-control" name="dob" id="dob" required>
-              </div>  
+              </div>
+
+                <div class="form-group">
+                  <label>Age</label>
+                  <input type="number" class="form-control" name="age" id="age" min="0" required>
+              </div>
 			  
 			  <div class="form-group">
                   <label>Contact no.</label>
