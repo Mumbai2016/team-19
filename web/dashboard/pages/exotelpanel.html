@@ -29,6 +29,52 @@
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        function makeExotelCall() {
+            var numbers = $('#calls').val();
+            var numbers = numbers.split(",");
+            var data = {};
+            data.mobile_nos = [];
+            for(var i in numbers) {
+                data.mobile_nos.push(parseInt(numbers[i]));
+            }
+
+            console.log(data);
+            $.ajax({
+                url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/exotel/make_exotel_call/",
+                type: "POST",
+                data: data,
+                success: function (data) {
+
+                },
+                error: function (data) {
+
+                }
+            })
+        }
+
+        $.ajax({
+            url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/exotel/data/",
+            type: "GET",
+            success: function (data) {
+                var html = "";
+                    for(key in data) {
+                        if(!data.hasOwnProperty(key)) continue;
+
+                        console.log(data[key]);
+                        html += '<tr class="odd gradeX">' +
+                                            '<td>'+data[key].mobile_no+'</td>' +
+                                            '<td>'+data[key].response+'</td>' +
+                                            '<td>'+data[key].duration+'</td>' +
+                                            '<td class="center">'+data[key].created_at+'</td>' +
+                                        '</tr>';
+                    }
+
+                    $('#stat').append(html);
+            }
+        })
+    </script>
 
 </head>
 
@@ -272,9 +318,9 @@
                         </div>
                         <div class="panel-body">
                            <div class="form-group">
-                                <form name="callusers" action="" >
-                                <textarea class="form-control" rows="3"></textarea><br />
-                                <button type="submit">Submit</button>
+                                <form name="callusers" onsubmit="return false;" >
+                                <textarea class="form-control" rows="3" id="calls"></textarea><br />
+                                <button type="submit" onclick="makeExotelCall()">Submit</button>
                                 </form>
                             </div>
                         </div>
@@ -298,16 +344,14 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
                                             <th>Mobile No.</th>
                                             <th>Recorded Education</th>
                                             <th>Duration</th>
                                             <th>Created At</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="stat">
                                         <tr class="odd gradeX">
-                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td class="center"></td>

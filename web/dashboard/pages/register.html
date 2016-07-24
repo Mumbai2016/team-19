@@ -7,7 +7,9 @@
     <title>Login</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	
+	<script src="../bower_components/jquery/dist/jquery.min.js"></script>
 	<script>
+
 	$(document).ready(function () {
         $.ajax({
             url: "localhost:9000/api/webapp/member/list",
@@ -39,6 +41,55 @@
             }
         });
     }
+
+	var invalid=false;
+	function checkPass() {
+	if(document.getElementById('password').value != document.getElementById('password1').value){
+	invalid = true;
+	alert('password not same');
+	}
+	}
+	
+	function formSubmit()
+	{
+	var user = {
+    "full_name":document.getElementById('full_name').value,
+	"email_id":document.getElementById('email_id').value,
+	"goal":null,
+	"password":document.getElementById('password').value,
+	"address":document.getElementById('address').value,
+	"gender":document.getElementById('gender').value,
+	"dob":document.getElementById('dob').value,
+    "age":document.getElementById('age').value,
+	"mobile_no":document.getElementById('mobile_no').value,
+	"mother_mobile_no":document.getElementById('mother_mobile_no').value,
+	"father_mobile_no":document.getElementById('father_mobile_no').value,
+	"other_no":document.getElementById('other_no').value,
+	"qualification":document.getElementById('qualification').value,
+	"employment":document.getElementById('employment').value,
+	"reward_points":0,
+	"program_start_date":null,
+	"program_duration":null,
+	"is_active":false,
+	"is_deactivated":false,
+	};
+	var data = {"user":user};
+
+	$.ajax({
+        url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/webapp/register/",
+        type: "POST",
+        data: JSON.stringify(data),
+        'processData': false,
+        'contentType': 'application/json',
+        success: function(result){
+            window.location = "index.html";
+        },
+        error: function (result) {
+            console.log("B");
+        }
+    });
+	}
+
 	</script>
   </head>
   <body style="background-color:#f5f5f5;">
@@ -46,7 +97,7 @@
         <div class="container col-sm-offset-3 col-sm-6">
           <h2 class="form-signin-heading" style="font-size:36px; color:#212121;">Registration Page</h2>
           <br>
-            <form class="form-signin" role="form">
+            <form class="form-signin" onsubmit="return false;" role="form">
               <div class="form-group">
                   <label>Full Name</label>
                   <input type="text" name="full_name" id="n1" class="form-control"  required>
@@ -122,8 +173,8 @@
 			  <div class="form-group">
 				  <label>Employment</label>
                   <select name="employment" id="employment" class="form-control">
-				  <option value="ssc">Employed</option>
-				  <option value="hsc">Unemployed</option>
+				  <option value="Employed">Employed</option>
+				  <option value="Unemployed">Unemployed</option>
 				  </select>
               </div>
 			  
@@ -132,7 +183,7 @@
 			  
 			  
 			  
-              <button type="submit" class="btn btn-lg btn-primary" onsubmit="formSubmit()">Register</button>
+              <button type="submit" class="btn btn-lg btn-primary" onclick="formSubmit()">Register</button>
             </form>
         </div>
       </div>

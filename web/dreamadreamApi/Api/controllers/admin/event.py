@@ -22,7 +22,7 @@ def event_create(request):
 
 @api_view(['GET'])
 def event_list(request):
-    events = Event.Objects.all()
+    events = Event.objects.all()
     retval = []
     for event in events:
         retval.append(EventSerializer(event).data)

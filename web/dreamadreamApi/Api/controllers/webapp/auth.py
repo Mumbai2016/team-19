@@ -29,6 +29,7 @@ def register(request):
         return Response(data="User Already exists please try again")
 
 
+@api_view(['POST'])
 def login(request):
     user = request.data.get('user', None)
 
