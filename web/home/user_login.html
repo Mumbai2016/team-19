@@ -6,13 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
+    <script>
+    function login() {
+      var data= {
+        "user": {
+          "email_id":document.getElementById('email').value,
+          "password":document.getElementById('password').value
+        }
+      }
+
+     $.ajax({
+        url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/webapp/login/",
+        type: "POST",
+        data: JSON.stringify(data),
+        'processData': false,
+        'contentType': 'application/json',
+        success: function(result){
+            window.location="index.html";
+            console.log(result);
+            var user = {"member":result.member,
+            "user":result.user};
+            localStorage.setItem('user',JSON.stringify(user))
+        },
+        error: function (result) {
+            console.log("Login Fail");
+        }
+    });
+    }
+    </script>
   </head>
   <body style="background-color:#f5f5f5;">
       <div class="container-fluid col-sm-12" style="padding:5%;">
         <div class="container col-sm-offset-4 col-sm-4">
           <h2 class="form-signin-heading" style="font-size:36px; color:#212121;">Login Page</h2>
           <br>
-            <form class="form-signin" role="form" method="POST">
+            <form class="form-signin" role="form" onsubmit="return false">
               <div class="form-group">
                   <label for="email">Email</label>
                   <input type="email" class="form-control" id="email" placeholder="Email" required>
@@ -21,7 +50,7 @@
                   <label for="password">Password</label>
                   <input type="password" class="form-control" id="password" placeholder="Password" required>
               </div>
-              <a href="home.html"><button type="submit" class="btn btn-lg btn-primary">Login</button></a>
+              <button type="submit" class="btn btn-lg btn-primary" onclick="login()">Login</button>
             </form>
         </div>
       </div>

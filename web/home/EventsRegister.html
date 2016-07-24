@@ -35,7 +35,7 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -58,6 +58,35 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="jquery.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/webapp/event/list",
+            type: "GET",
+            success: function (data) {
+                var html1 = "";
+                user = JSON.parse(localStorage.getItem('user'));
+
+                for(key in data) {
+                    if(!data.hasOwnProperty(key)) continue;
+
+                    html1 += '<tr class="odd gradeX">' +
+                            '<td>'+ data[key].name +'</td>' +
+                            '<td>'+ data[key].description +'</td>' +
+                            '<td>'+ data[key].address +'</td>' +
+                            '<td class="center">'+ data[key].qualification +'</td>' +
+                            '<td class="center">'+ data[key].age_min +'</td>' +
+                            '<td class="center">'+ data[key].age_max +'</td>' +
+                            '<td><button class="btn btn-default" onclick="register('+data[key].id+','+user.member+')">Register</button></td>'
+                            '</tr>';
+                }
+
+                $('#event-table').append(html1);
+            }
+        });
+    });
+    </script>
 
 </head>
 
@@ -134,14 +163,10 @@
                                             
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="event-table">
                                         <tr class="odd gradeX">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="center"></td>
-                                            <td class="center"></td>
-                                            <td><button class="btn btn-default" onclick="register">Register</button></td>
+                                            
+                                            
                                             
                                         </tr>
                                                                       
