@@ -8,15 +8,16 @@ from Api.serializer.webapp.eventserializer import EventSerializer
 
 
 @api_view(['POST'])
-def create_event(request):
+def event_create(request):
     event = request.data.get('event', None)
     ser = EventSerializer(data=event)
     if ser.is_valid():
         ser.save()
-    else:
-        return None
 
-    return event
+    else:
+        return Response(data="Failed",status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    return Response(data="Success",status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])

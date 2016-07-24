@@ -1,5 +1,7 @@
 import json
+from datetime import datetime
 
+import datetime
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework import status
@@ -51,7 +53,7 @@ def _register(request):
     member = request.data['user']
     ser = MemberSerializer(data=member)
     if ser.is_valid():
-        ser.save()
+        member = ser.save()
     else:
         raise ValueError(json.dumps(ser.errors))
 
