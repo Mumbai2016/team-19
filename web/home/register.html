@@ -43,7 +43,7 @@
 	var data = {"user":user}
 
 	$.ajax({
-        url: "http://localhost:9000/api/webapp/register/",
+        url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/webapp/register/",
         type: "POST",
         data: JSON.stringify(data),
         'processData': false,
