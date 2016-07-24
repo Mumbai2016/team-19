@@ -40,7 +40,7 @@
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: "http://localhost:9000/api/webapp/member/list",
+                url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/webapp/member/list",
                 type: "GET",
                 success: function (data, status, xhr) {
                     var html = "";
