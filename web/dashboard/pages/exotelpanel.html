@@ -42,7 +42,7 @@
 
             console.log(data);
             $.ajax({
-                url: "http://localhost:9000/api/exotel/make_exotel_call/",
+                url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/exotel/make_exotel_call/",
                 type: "POST",
                 data: data,
                 success: function (data) {
@@ -55,7 +55,7 @@
         }
 
         $.ajax({
-            url: "http://localhost:9000/api/exotel/data/",
+            url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/exotel/data/",
             type: "GET",
             success: function (data) {
                 var html = "";
