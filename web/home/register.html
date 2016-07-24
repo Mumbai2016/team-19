@@ -37,19 +37,24 @@
 	"program_start_date":null,
 	"program_duration":null,
 	"is_active":false,
-	"is_deactivated":false,
-	"created_at":document.getElementById('created_at').value,
-	"updated_at":document.getElementById('updated_at').value
-	}
+	"is_deactivated":false
+	};
+
 	var data = {"user":user}
 
-	$.ajax({url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/webapp/register,
-            type: "POST",
-            data: data,
-            success: function(result){
-            }
-        });
-
+	$.ajax({
+        url: "http://localhost:9000/api/webapp/register/",
+        type: "POST",
+        data: JSON.stringify(data),
+        'processData': false,
+        'contentType': 'application/json',
+        success: function(result){
+            window.location="index.html";
+        },
+        error: function (result) {
+            console.log("B");
+        }
+    });
 	}
 	</script>
   </head>
