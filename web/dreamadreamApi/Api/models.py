@@ -43,9 +43,6 @@ class Call(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        app_label = 'api'
-
 
 class Event(models.Model):
     name = models.CharField(max_length=255)

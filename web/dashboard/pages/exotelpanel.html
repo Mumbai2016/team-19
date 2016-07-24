@@ -29,6 +29,31 @@
     <!-- Custom Fonts -->
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        function makeExotelCall() {
+            var numbers = $('#calls').val();
+            var numbers = numbers.split(",");
+            var data = {};
+            data.mobile_nos = [];
+            for(var i in numbers) {
+                data.mobile_nos.push(parseInt(numbers[i]));
+            }
+
+            console.log(data);
+            $.ajax({
+                url: "http://localhost:9000/api/exotel/make_exotel_call/",
+                type: "POST",
+                data: data,
+                success: function (data) {
+
+                },
+                error: function (data) {
+
+                }
+            })
+        }
+    </script>
 
 </head>
 
@@ -316,9 +341,9 @@
                         </div>
                         <div class="panel-body">
                            <div class="form-group">
-                                <form name="callusers" action="" >
-                                <textarea class="form-control" rows="3"></textarea><br />
-                                <button type="submit">Submit</button>
+                                <form name="callusers" onsubmit="return false;" >
+                                <textarea class="form-control" rows="3" id="calls"></textarea><br />
+                                <button type="submit" onclick="makeExotelCall()">Submit</button>
                                 </form>
                             </div>
                         </div>

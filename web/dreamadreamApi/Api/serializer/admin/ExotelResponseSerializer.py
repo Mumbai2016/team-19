@@ -1,4 +1,4 @@
-from django.contrib.gis import serializers
+from rest_framework import serializers
 
 from Api.models import Call
 
@@ -19,6 +19,6 @@ class ExotelResponseSerializer(serializers.ModelSerializer):
             'updated_at'
         )
 
-    def create(self, validated_data):
-        exotelResoponse = Call.objects.create(**validated_data)
-        return exotelResoponse
+    # def create(self, validated_data):
+    #     exotelResoponse = Call.objects.create(**validated_data)
+    #     return exotelResoponse
