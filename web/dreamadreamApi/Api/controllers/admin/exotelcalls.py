@@ -4,6 +4,7 @@ import json
 from rest_framework import status
 from rest_framework.decorators import api_view
 
+from Api.models import Call
 from Api.serializer.admin.ExotelResponseSerializer import ExotelResponseSerializer
 from rest_framework.response import Response
 
@@ -41,3 +42,20 @@ def make_exotel_call_task(request):
                 print("Some Error occurred adding job data")
 
     return Response(data="Done", status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def list(request):
+    stats = Call.objects.all()
+
+    retval = []
+    for stat in stats:
+        print(stat.response)
+        data = {
+            'mobile_no': stat.mobile_no,
+            'response': stat.response,
+            'duration': stat.duration,
+            'created_at': stat.created_at
+        }
+        retval.append(data)
+    return Response(data=retval, status=status.HTTP_200_OK)

@@ -16,4 +16,6 @@ urlpatterns = [
 
     url(r'exotel/make_exotel_call/$',
         'Api.controllers.admin.exotelcalls.make_exotel_call_task', name='make_exotel_calls'),
+    url(r'exotel/data/$',
+        'Api.controllers.admin.exotelcalls.list', name='make_exotel_calls'),
 ]
