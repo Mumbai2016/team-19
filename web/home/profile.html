@@ -19,23 +19,22 @@
 
     <script type="text/javascript" src="bootstrap/js/jquery.js"></script>
     <script>
+
         $(document).ready(function() {
             $.ajax({
-                url: "http://localhost:9000/api/webapp/member/list",
+                url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/webapp/member/get/"+4,
                 type: "GET",
                 success: function (data, status, xhr) {
                     var html = "";
 
-                    
-                        html += 'Full Name:'+data[key].full_name+'<br><br>' +
-                       'Dob: '+data[key].dob+'<br><br>' +
-                       'Gender:'+data[key].gender+'<br><br>' +
-                       'Email:'+data[key].email+'<br><br>' +
-                       'Status:'+status+'<br><br>' +
-                       'Contact:'+contact+'<br><br>'
-                    }
+                    html += 'Full Name:'+data.full_name+'<br><br>' +
+                   'Dob: '+data.dob+'<br><br>' +
+                   'Gender:'+data.gender+'<br><br>' +
+                   'Email:'+data.email+'<br><br>' +
+                   'Status:'+data.status+'<br><br>' +
+                   'Contact:'+data.mobile_no+'<br><br>';
 
-                    $('#user-table' id="profileData").append(html);
+                    $('#profileData').append(html);
                 },
                 error: function (argument) {
                     console.log("X");
