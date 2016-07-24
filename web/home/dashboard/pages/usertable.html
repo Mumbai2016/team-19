@@ -39,7 +39,7 @@
     <script>
     $(document).ready(function () {
         $.ajax({
-            url: "localhost:9000/api/webapp/member/list",
+            url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/webapp/member/list",
             type: "GET",
             success: function (data) {
                 var html = "";
@@ -62,7 +62,7 @@
         });
 
     function delete_member(id){
-    $.ajax({url: "localhost:9000/api/web/member/delete/"+id,
+    $.ajax({url: "http://ec2-54-169-203-74.ap-southeast-1.compute.amazonaws.com:9000/api/web/member/delete/"+id,
             type: "GET",
             success: function(result){
             }
